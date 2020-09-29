@@ -1,0 +1,22 @@
+{{>post}}
+<div class="container">
+  <div class="row">
+    <form  action="/api/posts/create" method="post" class="col s12">
+      <div class="row">
+        <div class="input-field">
+          <input type="text" name="title" required autocomplete="off" id="title">
+          <label for="title">title</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field">
+          <textarea name="post" rows="8" cols="100" required  placeholder="write a post..." id="post" class="materialize-textarea"></textarea>
+          <label for="post">Post</label>
+        </div>
+      </div>
+      <div class="row">
+        <button type="submit" class="btn btn-large waves-effect blue">upload post</button>
+      </div>
+    </form>
+  </div>
+</div>

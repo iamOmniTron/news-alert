@@ -1,0 +1,29 @@
+{
+  "name": "news-alert",
+  "version": "1.0.0",
+  "description": "A simple news and post app where users can read news and post about it",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server"
+  },
+  "author": "abdulmumeen",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.1",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "express-session": "^1.17.1",
+    "joi": "^17.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.10.5",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4"
+  }
+}

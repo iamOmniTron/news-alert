@@ -1,0 +1,53 @@
+{{>post}}
+<div class="container">
+    <div class="row">
+      {{#each result}}
+      <div class="col s12 l4">
+        <div class="card">
+          <div class="card-content center-align">
+            <span class="card-title">{{title}}</span>
+            <p>{{stripTags (truncate post 20)}}</p>
+          </div>
+          <div class="card-action center-align ">
+            <a href="/api/posts/{{_id}}" class="blue-text text-darken">Read More</a>
+          </div>
+        </div>
+      </div>
+       {{/each}}
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

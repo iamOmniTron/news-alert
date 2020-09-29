@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col s4"></div>
+    <div class="center-align col s4">
+      <h3>SIGN UP</h3>
+      <div class="divider"> </div>
+      <form action="/signup" method="post">
+        <div class="input-field">
+          <input type="text" name="username" class="validate" autocomplete="off" id="username">
+          <label for="username" class="active">username</label>
+        </div>
+        <div class="input-field">
+          <input type="email" name="email" class="validate" autocomplete="off" id="email">
+          <label for="email" class="active">email</label>
+        </div>
+        <div class="input-field">
+          <input type="password" name="password" class="validate" autocomplete="off" id="password">
+          <label for="password" class="active">password</label>
+        </div>
+        <div class="input-field">
+          <input type="password" name="password2" class="validate" id="password2">
+          <label for="password2" class="active"> enter password again</label>
+        </div>
+        <button type="submit" class="btn btn-large blue lighten-2 hoverable">sign in</button>
+      </form>
+    </div>
+    <div class="col s4"></div>
+  </div>
+</div>
+{{>footer}}
