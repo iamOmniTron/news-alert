@@ -4,13 +4,13 @@
     <div class="card-content">
       <h3 class="center">{{title}}</h3>
       <p>{{post}}</p>
-      <small> posted by:{{author}}</small>
+      <small> posted by: <b>{{author}}</b></small>
     </div>
     <div class="card-action center-align ">
-      <!-- <a href="/api/posts/edit/{{id}}" class="blue-text text-darken"> Edit</a> -->
-      {{editPost author currentUser id}}
-      {{deletePost author currentUser id}}
-      <!-- <a href="/api/posts/delete/{{id}}" class="blue-text text-darken">Delete</a> -->
+      {{#if isOwner}}
+        <a href="/api/posts/delete/{{id}}" class="blue-text text-darken">Delete</a>
+        <a href="/api/posts/edit/{{id}}" class="blue-text text-darken"> Edit</a>
+      {{/if}}
     </div>
   </div>
 </div>

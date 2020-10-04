@@ -1,64 +1,40 @@
-'use strict'
-const express = require('express');
-const mongoose = require('mongoose');
-const {User}= require('../models/users.model')
-const {login,signup,profile,logout} = require('../controllers/auth-controller');
-const {ensureAuth,ensureSession} = require('../middlewares/ensureAuth');
+"use strict";
+const express = require("express");
+const { User } = require("../models/users.model");
+const { ensureSession, ensureAuth } = require("../middlewares/auth");
+const {
+  login,
+  signup,
+  profile,
+  logout,
+} = require("../controllers/auth-controller");
 const router = express.Router();
 
-  router.get('/login',ensureAuth,(req,res)=>{
-    res.render('login');
-  });
+router.get("/login", ensureSession, (req, res) => {
+  res.render("login");
+});
 
-  router.post('/login',login);
+router.post("/login", login);
 
-  router.get('/signup',ensureAuth,(req,res)=>{
-    res.render('signup')
-  });
+router.get("/signup", ensureSession, (req, res) => {
+  res.render("signup");
+});
 
-  router.post('/signup',signup);
+router.post("/signup", signup);
 
-  router.get('/',async(req,res)=>{
-   const apiKey = process.env.API_KEY;
-   const axios = require('axios');
-   const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
-   try {
+router.get("/", ensureAuth, async (req, res) => {
+  const apiKey = process.env.API_KEY;
+  const axios = require("axios");
+  const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
+  try {
     const results = await axios.get(url);
     const news = results.data.articles;
-    res.render('home',{news})
-   } catch (err) {
-     res.json(err.message)
-   }
-  });
-  router.get('/profile',profile);
-  router.get('/logout',logout)
+    res.render("home");
+  } catch (err) {
+    res.json(err.message);
+  }
+});
+router.get("/profile", ensureAuth, profile);
+router.get("/logout", ensureAuth, logout);
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
