@@ -79,12 +79,13 @@ app.use(async (req, res, next) => {
 });
 app.use(async (err, req, res, next) => {
   res.status(err.status || 500);
-  res.send({
-    error: {
-      status: err.status || 500,
-      message: err.message,
-    },
-  });
+  // res.send({
+  //   error: {
+  //     status: err.status || 500,
+  //     message: err.message,
+  //   },
+  // });
+  res.render("errors", { status: err.status, message: err.message });
 });
 app.listen(port, () => {
   console.log(`app listening at port:${port}`);
