@@ -48,7 +48,7 @@ module.exports = {
         post: post.post,
         isOwner: isOwner,
       });
-    } catch (e) {
+    } catch (err) {
       res.status(500).send("error occured");
     }
   },
@@ -79,17 +79,19 @@ module.exports = {
       { new: true, runValidators: true }
     );
     if (!edited) return res.send("error occured!");
-    console.log("Done Editing!");
     await edited.save();
     res.redirect("/api/posts");
   },
   //delete a particular post
   deletePost: async (req, res) => {
     const postId = req.params.id;
-    const deleted = await Post.delete({ _id: postId });
-    if (!deleted) return res.send("error occured while deleting post!");
-    console.log("deleted post!");
-    res.redirect("/api/posts");
+    try {
+      const post = await Post.findById({ _id: postId }).lean();
+      await Post.deleteOne({ _id: postId });
+      res.redirect("/api/posts");
+    } catch (err) {
+      res.render("errors", { status: err.status, message: err.message });
+    }
   },
 };
 

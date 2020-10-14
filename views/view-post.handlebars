@@ -8,8 +8,11 @@
     </div>
     <div class="card-action center-align ">
       {{#if isOwner}}
-        <a href="/api/posts/delete/{{id}}" class="blue-text text-darken">Delete</a>
-        <a href="/api/posts/edit/{{id}}" class="blue-text text-darken"> Edit</a>
+      <form class="" action="/api/posts/delete/{{id}}" method="POST" style="display:inline;">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn white-text blue">Delete</button>
+      </form>
+        <a href="/api/posts/edit/{{id}}" class="white-text btn blue"> Edit</a>
       {{/if}}
     </div>
   </div>

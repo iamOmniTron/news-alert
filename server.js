@@ -24,7 +24,7 @@ const mongoDB = "mongodb://localhost/news-alert";
 
 //set env variable depending on node environment
 if (process.env.NODE_ENV !== "production") {
-  dotenv.config({ path: path.join(__dirname, ".env") });
+  dotenv.config({ path: "./.env" });
 }
 
 mongoose
@@ -38,7 +38,7 @@ mongoose
   .catch((err) => console.error("could not connect to mongodb", err));
 
 app.set("views", path.join(__dirname, "views"));
-app.use(express.static("public"));
+app.use(express.static(__dirname + "public"));
 app.engine(
   "handlebars",
   exphbs({
@@ -48,6 +48,7 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 app.use(logger("dev"));
+app.use(methodOverride("_method"));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -79,12 +80,6 @@ app.use(async (req, res, next) => {
 });
 app.use(async (err, req, res, next) => {
   res.status(err.status || 500);
-  // res.send({
-  //   error: {
-  //     status: err.status || 500,
-  //     message: err.message,
-  //   },
-  // });
   res.render("errors", { status: err.status, message: err.message });
 });
 app.listen(port, () => {

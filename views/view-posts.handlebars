@@ -1,5 +1,6 @@
 {{>post}}
 <div class="container">
+  {{#if result}}
     <div class="row">
       {{#each result}}
       <div class="col s12 l4">
@@ -15,6 +16,12 @@
       </div>
        {{/each}}
     </div>
+    {{else}}
+    <div class="center">
+      <h1>No posts</h1>
+      <a href="/api/posts/create" class="btn blue ">Add Post</a>
+    </div>
+    {{/if}}
 </div>
 
 
