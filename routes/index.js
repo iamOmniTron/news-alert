@@ -31,10 +31,9 @@ router.get("/", ensureAuth, async (req, res) => {
     const news = results.data.articles;
     res.render("home");
   } catch (err) {
-    res.json(err.message);
+    res.render("errors", { status: 404, message: err.message });
   }
 });
 router.get("/profile", ensureAuth, profile);
 router.get("/logout", ensureAuth, logout);
-
 module.exports = router;

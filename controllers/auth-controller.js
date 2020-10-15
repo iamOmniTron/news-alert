@@ -13,7 +13,8 @@ module.exports = {
 
     try {
       const user = await User.findOne({ username: req.body.username });
-      if (!user) return res.send("user don't exist");
+      if (!user)
+        return res.render("errors", { status: 404, message: "user not found" });
       const hashedPassword = await bcrypt.hash(password, 10);
       await bcrypt.compare(hashedPassword, user.password);
       req.session.user = {
@@ -22,7 +23,7 @@ module.exports = {
       };
       res.redirect("/");
     } catch (err) {
-      throw new Error(err.message);
+      res.render("errors", { status: err.status, message: err.message });
     }
   },
   signup: async (req, res) => {
@@ -44,7 +45,7 @@ module.exports = {
       user.password = await bcrypt.hash(user.password, 10);
       const token = await jwt.sign(
         { username: user.username },
-        config.get(secret),
+        config.get("secret"),
         { algorithm: "HS256", expiresIn: 43200 }
       );
       res.cookie("token", token, {
@@ -59,7 +60,7 @@ module.exports = {
       };
       res.redirect("/");
     } catch (err) {
-      res.status(500).send("error occured");
+      res.render("errors", { status: err.status, message: err.message });
     }
   },
   profile: async (req, res) => {
