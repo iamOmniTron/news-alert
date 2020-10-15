@@ -19,6 +19,6 @@ apiRouter.post("/posts/create", createPost);
 apiRouter.get("/posts/:id", ensureAuth, viewPost);
 apiRouter.get("/posts/edit/:id", ensureAuth, viewEdit);
 apiRouter.post("/posts/edit/:id", editPost);
-apiRouter.delete("/posts/delete/:id", deletePost);
+apiRouter.post("/posts/delete/:id", deletePost);
 
 module.exports = apiRouter;
