@@ -17,7 +17,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const apiRouter = require("./routes/api/post-route");
 const router = require("./routes/index");
-const { truncate, stripTags } = require("./helpers/handlebars");
+const { truncate, stripTags, year } = require("./helpers/handlebars");
 const app = express();
 const secret = process.env.SECRET;
 const mongoDB = "mongodb://localhost/news-alert";
@@ -43,13 +43,13 @@ app.engine(
   "handlebars",
   exphbs({
     defaulLayout: "main",
-    helpers: { truncate, stripTags },
+    helpers: { truncate, stripTags, year },
   })
 );
 app.set("view engine", "handlebars");
 app.use(logger("dev"));
 app.use(methodOverride("_method"));
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(

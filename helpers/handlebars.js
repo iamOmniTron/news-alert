@@ -12,6 +12,10 @@ module.exports = {
   stripTags: function (input) {
     return input.replace(/<(?:.|\n)*?>/gm, "");
   },
+  year: function () {
+    const d = new Date();
+    return d.getFullYear();
+  },
 };
 
 //
