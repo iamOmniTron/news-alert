@@ -14,12 +14,17 @@
   			  crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript">
+    // Load this if cannot fetch jquery
     document.addEventListener('DOMContentLoaded',function(){
       var elems = document.querySelectorAll('.sidenav');
       var instances = M.Sidenav.init(elems,{draggable:true})
     })
     $(document).ready(function(){
             $('.sidenav').sidenav();
+
+            $('#textarea1').val('New Text');
+            M.textareaAutoResize($('#textarea1'));
+
           });
     </script>
   </body>

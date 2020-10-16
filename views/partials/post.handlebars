@@ -1,19 +1,29 @@
 
 <nav>
-  <div class="nav-wrapper blue">
-    <a href="/" class="brand-logo right">Home</a>
-    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  <div class="nav-wrapper blue row">
+    <a href="/" class="brand-logo right col s4"><i class="material-icons">home</i></a>
+      <!-- <input type="text" name="" value="" id="search" class="col s4 center"> -->
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger col s4 center"><i class="material-icons left">menu</i></a>
     <ul class="left hide-on-med-and-down">
-      <li><a href="/api/posts">back</a></li>
-      <li><a href="/api/posts/create">create post</a></li>
+      <li><a href="/api/posts">back <i class="material-icons blue-text">back</i></a></li>
+      <li><a href="/api/posts/create">add <i class="material-icons blue-text">add</i> </a></li>
     </ul>
+    <form class="col s4 left">
+      <div class="input-field">
+        <input id="search" type="search" required placeholder="search posts" class="left">
+        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+        <i class="material-icons">close</i>
+      </div>
+    </form>
   </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-  <li><a href="/profile">profile</a></li>
+  <li><a href="/api/posts/create">create<i class="material-icons blue-text">add</i> </a></li>
   <div class="divider"></div>
-  <li><a href="/api/posts">posts</a></li>
+  <li><a href="/profile">profile<i class="material-icons blue-text">account_circle</i></a></li>
   <div class="divider"></div>
-  <li><a href="/logout">logout</a></li>
+  <li><a href="/api/posts">posts<i class="material-icons blue-text">local_library</i></a></li>
+  <div class="divider"></div>
+  <li><a href="/logout">logout <i class="material-icons blue-text">logout</i></a></li>
 </ul>

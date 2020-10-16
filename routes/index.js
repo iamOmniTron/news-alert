@@ -25,13 +25,12 @@ router.post("/signup", signup);
 router.get("/", ensureAuth, async (req, res) => {
   const apiKey = process.env.API_KEY;
   const axios = require("axios");
-  const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
   try {
     const results = await axios.get(url);
     const news = results.data.articles;
-    res.render("home");
+    res.render("home", { news: news });
   } catch (err) {
-    res.render("errors", { status: 404, message: err.message });
+    res.render("errors", { status: err.status, message: err.message });
   }
 });
 router.get("/profile", ensureAuth, profile);
