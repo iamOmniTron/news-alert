@@ -49,7 +49,7 @@ module.exports = {
         isOwner: isOwner,
       });
     } catch (err) {
-      res.status(500).send("error occured");
+      res.render("errors", { status: err.status, message: err.message });
     }
   },
 
@@ -89,6 +89,19 @@ module.exports = {
       const post = await Post.findById({ _id: postId }).lean();
       await Post.deleteOne({ _id: postId });
       res.redirect("/api/posts");
+    } catch (err) {
+      res.render("errors", { status: err.status, message: err.message });
+    }
+  },
+  search: async (req, res) => {
+    const escapeRegex = (text) =>
+      text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    const query = req.query.search;
+    if (!query) res.send("enter search");
+    try {
+      const regex = new RegExp(escapeRegex(query), "gi");
+      const result = await Post.find({ title: regex }).lean();
+      res.render("view-posts", { result: result });
     } catch (err) {
       res.render("errors", { status: err.status, message: err.message });
     }
