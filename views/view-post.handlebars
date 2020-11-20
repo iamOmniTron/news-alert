@@ -1,20 +1,20 @@
 {{>post}}
 <div class="container">
-  <div class="card center z-depth-3">
-    <div class="card-content">
-      <h3 class="center">{{title}}</h3>
-      <p>{{post}}</p>
-      <small> posted by: <b>{{author}}</b></small>
-    </div>
-    <div class="card-action center-align ">
-      {{#if isOwner}}
-      <form class="" action="/api/posts/delete/{{id}}" method="POST" style="display:inline;">
-        <input type="hidden" name="_method" value="DELETE">
-        <button type="submit" class="btn white-text blue">Delete</button>
-      </form>
-        <a href="/api/posts/edit/{{id}}" class="white-text btn blue"> Edit</a>
-      {{/if}}
-    </div>
+    <div class="card center z-depth-3">
+      <div class="card-content">
+        <strong class="center card-title">{{title}}</strong>
+        <p>{{post}}</p>
+        <small> posted by:<a href="/profile"> <b>{{author}}</b></a></small>
+      </div>
+      <div class="card-action center-align ">
+        {{#if isOwner}}
+        <form class="" action="/api/posts/delete/{{id}}" method="POST" style="display:inline;">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn white-text blue">Delete</button>
+        </form>
+          <a href="/api/posts/edit/{{id}}" class="white-text btn blue"> Edit</a>
+        {{/if}}
+      </div>
   </div>
 </div>
 {{>footer}}
