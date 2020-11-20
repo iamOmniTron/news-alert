@@ -13,7 +13,10 @@ module.exports = {
   //mount at all other protected routes
   ensureAuth: async (req, res, next) => {
     const { user } = req.session;
-    if (!user) return res.redirect("/login");
+    if (!user) {
+      req.flash("error", "you must be logged in first");
+      return res.redirect("/login");
+    }
     next();
   },
 };

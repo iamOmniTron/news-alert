@@ -4,7 +4,8 @@
   "description": "A simple news and post app where users can read news and post about it",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "start:prod": "node server.js"
   },
   "author": "abdulmumeen",
   "license": "MIT",

@@ -13,26 +13,37 @@ module.exports = {
 
     try {
       const user = await User.findOne({ username: req.body.username });
-      if (!user)
-        return res.render("errors", { status: 404, message: "user not found" });
+      if (!user) {
+        req.flash("error", "incorrect password/usermail");
+        res.redirect("/login");
+      }
       const hashedPassword = await bcrypt.hash(password, 10);
       await bcrypt.compare(hashedPassword, user.password);
       req.session.user = {
         id: user.id,
         username: user.username,
       };
+      req.flash("success", `welcome ${req.session.username}`);
       res.redirect("/");
     } catch (err) {
-      res.render("errors", { status: err.status, message: err.message });
+      req.flash("error", "error occured");
+      res.redirect("back");
     }
   },
   signup: async (req, res) => {
     const { error } = validateUser(req.body);
-    if (error) return res.status(400).json({ error: error.details[0].message });
+    if (error)
+      return res.render("errors", {
+        status: error.status,
+        message: error.message,
+      });
 
     try {
       let user = await User.findOne({ username: req.body.username });
-      if (user) return res.send("user already exist!");
+      if (user) {
+        req.flash("error", "username already exists");
+        res.redirect("/signup");
+      }
       user = new User({
         username: req.body.username,
         email: req.body.email,
@@ -58,9 +69,11 @@ module.exports = {
         id: user.id,
         username: user.username,
       };
+      req.flash("success", "user registration successful");
       res.redirect("/");
     } catch (err) {
-      res.render("errors", { status: err.status, message: err.message });
+      req.flash("error", "an error occured");
+      res.redirect("/signup");
     }
   },
   profile: async (req, res) => {
@@ -72,10 +85,11 @@ module.exports = {
         email: user.email,
       });
     } catch (err) {
-      res.status(400).send("error");
+      res.render("errors", { status: err.status, message: err.message });
     }
   },
   logout: async (req, res) => {
+    req.flash("success", "logout successful");
     req.session.destroy((err) => {
       if (err) return console.log(err);
       req.session = null;
@@ -84,5 +98,3 @@ module.exports = {
     });
   },
 };
-
-//

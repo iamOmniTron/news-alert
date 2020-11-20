@@ -1,25 +1,25 @@
 
 <nav>
-  <div class="nav-wrapper blue row">
-    <a href="/" class="brand-logo right col s4"><i class="material-icons">home</i></a>
-      <!-- <input type="text" name="" value="" id="search" class="col s4 center"> -->
-    <a href="#" data-target="mobile-demo" class="sidenav-trigger col s4 center"><i class="material-icons left">menu</i></a>
+  <div class="nav-wrapper blue" style="display:flex;justify-content:space-around;align-items:center;">
+    <a href="/" class="right brand-logo"><i class="material-icons">home</i></a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger center"><i class="material-icons left">menu</i></a>
     <ul class="left hide-on-med-and-down">
-      <li><a href="/api/posts">back <i class="material-icons blue-text">back</i></a></li>
-      <li><a href="/api/posts/create">add <i class="material-icons blue-text">add</i> </a></li>
+      <li><a href="/api/posts"><i class="material-icons">arrow_back</i></a></li>
+      <li><a href="/api/posts/create"><i class="material-icons">add_box</i> </a></li>
     </ul>
-    <form class="col s4 left">
-      <div class="input-field">
-        <input id="search" type="search" required placeholder="search posts" class="left">
-        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-        <i class="material-icons">close</i>
+    <form class=" center" style="width:80%; padding-right:70px;" action="/api/posts/search" method="get">
+      <div class="input-field inline">
+        <input id="search" type="text" required placeholder="search posts" name="search">
+      </div>
+      <div class="input-field inline hide-on-med-and-down">
+        <button type="submit" class="btn btn-small blue z-depth-1">search</button>
       </div>
     </form>
   </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-  <li><a href="/api/posts/create">create<i class="material-icons blue-text">add</i> </a></li>
+  <li><a href="/api/posts/create">create<i class="material-icons blue-text">add_box</i> </a></li>
   <div class="divider"></div>
   <li><a href="/profile">profile<i class="material-icons blue-text">account_circle</i></a></li>
   <div class="divider"></div>

@@ -3,10 +3,13 @@
 //requiring modules
 const express = require("express");
 const dotenv = require("dotenv");
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config({ path: __dirname + "/.env" });
+}
 const config = require("config");
 const path = require("path");
 const methodOverride = require("method-override");
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
 const exphbs = require("express-handlebars");
 const cors = require("cors");
 const logger = require("morgan");
@@ -14,18 +17,14 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const flash = require("connect-flash");
 const MongoStore = require("connect-mongo")(session);
 const apiRouter = require("./routes/api/post-route");
 const router = require("./routes/index");
 const { truncate, stripTags, year } = require("./helpers/handlebars");
 const app = express();
 const secret = process.env.SECRET;
-const mongoDB = "mongodb://localhost/news-alert";
-
-//set env variable depending on node environment
-if (process.env.NODE_ENV !== "production") {
-  dotenv.config({ path: "./.env" });
-}
+const mongoDB = process.env.MONGO_URI;
 
 mongoose
   .connect(mongoDB, {
@@ -64,26 +63,25 @@ app.use(
 app.use(cookieParser());
 app.use(
   session({
-    secret: config.get("secret"),
+    secret: secret,
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
     cookie: { httpOnly: true, maxAge: 43200000, secure: false },
   })
 );
+app.use(flash());
 app.use("/", router);
 app.use("/api", apiRouter);
-app.use(async (req, res, next) => {
+app.use((req, res, next) => {
   let err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
-app.use(async (err, req, res, next) => {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render("errors", { status: err.status, message: err.message });
 });
 app.listen(port, () => {
   console.log(`app listening at port:${port}`);
 });
-
-//

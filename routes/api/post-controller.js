@@ -8,15 +8,19 @@ module.exports = {
   createPost: async (req, res) => {
     const { title, post } = req.body;
     const userId = req.session.user.id;
-
-    const update = new Post({
-      title: title,
-      author: userId,
-      post: post,
-    });
-    await update.save();
-    console.log("saved");
-    res.redirect("/api/posts");
+    try {
+      const update = new Post({
+        title: title,
+        author: userId,
+        post: post,
+      });
+      await update.save();
+      req.flash("success", "post saved");
+      res.redirect("/api/posts");
+    } catch (err) {
+      req.flash("error", "error occured");
+      res.redirect("/api/posts");
+    }
   },
 
   //View all posts
@@ -34,13 +38,16 @@ module.exports = {
     try {
       const postId = req.params.id;
       const post = await Post.findById({ _id: postId });
-      if (!post) return res.status(404).send("sorry, post not found");
+      if (!post) {
+        req.flash("error", "post not found");
+        res.redirect("/api/posts");
+      }
       const currentUser = req.session.user.id;
       const author = await User.findById({ _id: post.author });
       const authorId = author._id;
       const authorName = author.username;
       let isOwner = false;
-      if (currentUser == authorId || author.isAdmin == true) isOwner = true;
+      if (currentUser == authorId || author.isAdmin) isOwner = true;
       res.render("view-post", {
         id: post._id,
         title: post.title,
@@ -107,5 +114,3 @@ module.exports = {
     }
   },
 };
-
-//
