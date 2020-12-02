@@ -30,7 +30,12 @@ module.exports = {
     const result = await Post.find({}).lean();
     if (!result) return res.send("No Post Found");
 
-    res.render("view-posts", { result, isAuthor });
+    res.render("view-posts", {
+      result,
+      isAuthor,
+      success: req.flash("success"),
+      error: req.flash("error"),
+    });
   },
 
   //view a single post
@@ -54,6 +59,8 @@ module.exports = {
         author: authorName,
         post: post.post,
         isOwner: isOwner,
+        success: req.flash("success"),
+        error: req.flash("error"),
       });
     } catch (err) {
       res.render("errors", { status: err.status, message: err.message });
