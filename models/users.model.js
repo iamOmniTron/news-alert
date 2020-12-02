@@ -21,7 +21,6 @@ const UserSchema = new mongoose.Schema({
     type:String,
     required:[true,`password is required`],
     minlength: [5,`password too short`],
-    maxlength:[360,`password too long`]
   },
   isAdmin:Boolean
 });
