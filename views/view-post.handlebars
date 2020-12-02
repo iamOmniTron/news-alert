@@ -1,5 +1,5 @@
 {{>post}}
-<div class="container">
+<div class="container" style="height:75vh">
     <div class="card center z-depth-3">
       <div class="card-content">
         <strong class="center card-title">{{title}}</strong>
@@ -10,7 +10,7 @@
         {{#if isOwner}}
         <form class="" action="/api/posts/delete/{{id}}" method="POST" style="display:inline;">
           <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn white-text blue">Delete</button>
+          <button type="submit" class="btn white-text blue" id="deleteBtn" onclick="delete()">Delete</button>
         </form>
           <a href="/api/posts/edit/{{id}}" class="white-text btn blue"> Edit</a>
         {{/if}}
@@ -18,3 +18,15 @@
   </div>
 </div>
 {{>footer}}
+<script>
+const deleteBtn = document.querySelector('#deleteBtn');
+const id = deleteBtn.value;
+deleteBtn.addEventListener('click',function(e){
+  const question = confirm('delete this post?');
+  if (question == true) {
+  return false
+  }else{
+    e.preventDefault()
+  }
+},false)
+</script>
