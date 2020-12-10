@@ -23,7 +23,7 @@ module.exports = {
         id: user.id,
         username: user.username,
       };
-      req.flash("success", `welcome ${req.session.username}`);
+      req.flash("success", `welcome ${req.session.user.username}`);
       res.redirect("/");
     } catch (err) {
       req.flash("error", "error occured");
