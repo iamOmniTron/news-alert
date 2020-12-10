@@ -18,7 +18,7 @@
           <img src="{{urlToImage}}" alt="image" class="activator responsive-img">
         </div>
         <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">{{description}}</span>
+          <span class="card-title activator grey-text text-darken-4">{{ stripTags (truncate description 20)}}</span>
           <p> <a href="{{url}} post-link">read more</a></p>
         </div>
         <div class="card-reveal">
